@@ -133,7 +133,7 @@ func InitCasbin() *casbin.Enforcer {
 	if err != nil {
 		MyLog.Fatalln("casbin 适配器初始化失败！ ", err)
 	}
-	e, err := casbin.NewEnforcer(AppPath+"/models.toml", a)
+	e, err := casbin.NewEnforcer(AppPath+"/models.conf", a)
 	if err != nil {
 		MyLog.Fatalln("casbin Enforcer 初始化失败！ ", err)
 	}

@@ -1,6 +1,6 @@
 //+build wireinject
 
-package main
+package wirex
 
 import (
 	"github.com/casbin/casbin/v2"
@@ -15,15 +15,10 @@ import (
 var commonInits = wire.NewSet(global.InitViper, global.InitLog)
 var routerSet = wire.NewSet(global.InitGin, api.LoadAPI)
 
-func init() {
-	initBase()
-}
-
 // InitBase 初始化基本组件
 // 方便调用
 // 调用顺序很重要
-func initBase() {
-	initAppPath()
+func InitBase() {
 	initCommonSet()
 	initRouter()
 	initDB()
@@ -36,10 +31,6 @@ func initCasbin() *casbin.Enforcer {
 func initDB() model.DBMigrateError {
 	wire.Build(global.InitDB, model.DBMigrate)
 	return nil
-}
-func initAppPath() appLocal {
-	wire.Build(appPath)
-	return ""
 }
 
 // initCommonSet 初始化通用组件

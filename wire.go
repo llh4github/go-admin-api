@@ -3,6 +3,7 @@
 package main
 
 import (
+	"github.com/casbin/casbin/v2"
 	"github.com/gin-gonic/gin"
 	"github.com/google/wire"
 	"github.com/llh4github/go-admin-api/api"
@@ -26,6 +27,11 @@ func initBase() {
 	initCommonSet()
 	initRouter()
 	initDB()
+	initCasbin()
+}
+func initCasbin() *casbin.Enforcer {
+	wire.Build(global.InitCasbin)
+	return nil
 }
 func initDB() model.DBMigrateError {
 	wire.Build(global.InitDB, model.DBMigrate)

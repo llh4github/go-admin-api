@@ -6,6 +6,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/casbin/casbin/v2"
+	gormadapter "github.com/casbin/gorm-adapter/v3"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -27,6 +29,8 @@ var (
 	MyDB    *gorm.DB
 
 	MyLog *logrus.Logger
+	// Enforcer casbin的权限认证器
+	Enforcer *casbin.Enforcer
 )
 
 // ------------------ 全局变量初始化方法 -----------------------
@@ -121,4 +125,19 @@ func InitDB() *gorm.DB {
 	MyLog.Debugln("数据库连接成功！")
 
 	return MyDB
+}
+
+// InitCasbin 初始化 Casbin
+func InitCasbin() *casbin.Enforcer {
+	a, err := gormadapter.NewAdapterByDB(MyDB)
+	if err != nil {
+		MyLog.Fatalln("casbin 适配器初始化失败！ ", err)
+	}
+	e, err := casbin.NewEnforcer(AppPath+"/models.toml", a)
+	if err != nil {
+		MyLog.Fatalln("casbin Enforcer 初始化失败！ ", err)
+	}
+	MyLog.Debug(" Casbin 初始化成功！")
+	Enforcer = e
+	return e
 }

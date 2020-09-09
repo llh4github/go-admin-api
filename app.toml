@@ -1,0 +1,14 @@
+AppName='app'
+# gin会判断是不是以 / 开头，不用考虑gin配置。为了使用方便请以 / 开头配置此项目
+# APIPrefix="/api"
+LogLevel="debug"
+[DBConf]
+username='root'
+password='root'
+hostname='127.0.0.1:3306'
+database='go_web'
+params='charset=utf8&parseTime=True&loc=Local'
+[Jwt]
+secret="waibibabu"
+exp=15 # minute。请写正整数
+iss="llh"

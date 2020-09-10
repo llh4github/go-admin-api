@@ -1,7 +1,6 @@
 package model
 
 import (
-	"database/sql"
 	"time"
 )
 
@@ -16,8 +15,9 @@ type Base struct {
 	RemoveFlag bool `json:"remove_flag"`
 
 	CreatedBy uint `json:"created_by"`
-	// 可为空
-	UpdatedBy sql.NullInt64 `json:"updated_by"`
+	// sql.NullInt64 这种类型对json不友好
+	// UpdatedBy sql.NullInt64 `json:"updated_by"`
+	UpdatedBy *uint `json:"updated_by"`
 }
 
 // SetCreateInfo 创建时的审计信息
@@ -33,10 +33,9 @@ func (b *Base) SetCreateInfo() {
 func (b *Base) SetUpdateInfo() {
 	now := time.Now()
 	b.UpdatedAt = &now
-	u := sql.NullInt64{}
 	// TODO 完善更新人信息
-	u.Scan(1)
-	b.UpdatedBy = u
+	u := uint(1)
+	b.UpdatedBy = &u
 }
 
 // SetRemove 设置移除信息

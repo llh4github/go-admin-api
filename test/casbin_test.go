@@ -14,7 +14,6 @@ func TestInitData(t *testing.T) {
 }
 
 // 测试 权限验证
-
 func TestValid(t *testing.T) {
 	has1 := e.HasPermissionForUser("admin", "/api/admin/1", "post")
 	has2 := e.HasPermissionForUser("admin", "/api/staff/1", "get")
@@ -24,7 +23,6 @@ func TestValid(t *testing.T) {
 	// ACL模型不能使用ROLE相关的API
 	// 下面这句铁定报错
 	// e.AddRoleForUser("tom", "admin")
-
 }
 
 /*

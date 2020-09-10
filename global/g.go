@@ -136,8 +136,9 @@ func InitCasbin() *casbin.Enforcer {
 	e, err := casbin.NewEnforcer(AppPath+"/models.conf", a)
 	if err != nil {
 		MyLog.Fatalln("casbin Enforcer 初始化失败！ ", err)
+	} else {
+		MyLog.Debug(" Casbin 初始化成功！")
 	}
-	MyLog.Debug(" Casbin 初始化成功！")
 	Enforcer = e
 	return e
 }

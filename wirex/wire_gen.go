@@ -12,11 +12,17 @@ import (
 	"github.com/llh4github/go-admin-api/api"
 	"github.com/llh4github/go-admin-api/global"
 	"github.com/llh4github/go-admin-api/model"
+	"github.com/llh4github/go-admin-api/service"
 	"github.com/llh4github/go-admin-api/utils"
 	"github.com/sirupsen/logrus"
 )
 
 // Injectors from wire.go:
+
+func initService() *service.Base {
+	base := service.InitService()
+	return base
+}
 
 func initJwtConf() global.JwtConfig {
 	jwtConfig := utils.InitJwtConf()
@@ -62,4 +68,5 @@ func InitBase() {
 	initCasbin()
 
 	initJwtConf()
+	initService()
 }

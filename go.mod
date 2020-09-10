@@ -5,6 +5,7 @@ go 1.14
 require (
 	github.com/casbin/casbin/v2 v2.11.2
 	github.com/casbin/gorm-adapter/v3 v3.0.2
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.6.3
 	github.com/google/wire v0.4.0
 	github.com/sirupsen/logrus v1.4.2

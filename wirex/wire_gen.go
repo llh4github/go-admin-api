@@ -12,10 +12,16 @@ import (
 	"github.com/llh4github/go-admin-api/api"
 	"github.com/llh4github/go-admin-api/global"
 	"github.com/llh4github/go-admin-api/model"
+	"github.com/llh4github/go-admin-api/utils"
 	"github.com/sirupsen/logrus"
 )
 
 // Injectors from wire.go:
+
+func initJwtConf() global.JwtConfig {
+	jwtConfig := utils.InitJwtConf()
+	return jwtConfig
+}
 
 func initCasbin() *casbin.Enforcer {
 	enforcer := global.InitCasbin()
@@ -54,4 +60,6 @@ func InitBase() {
 	initRouter()
 	initDB()
 	initCasbin()
+
+	initJwtConf()
 }

@@ -9,6 +9,7 @@ import (
 	"github.com/llh4github/go-admin-api/api"
 	"github.com/llh4github/go-admin-api/global"
 	"github.com/llh4github/go-admin-api/model"
+	"github.com/llh4github/go-admin-api/utils"
 	"github.com/sirupsen/logrus"
 )
 
@@ -23,6 +24,13 @@ func InitBase() {
 	initRouter()
 	initDB()
 	initCasbin()
+
+	initJwtConf()
+}
+func initJwtConf() global.JwtConfig {
+
+	wire.Build(utils.InitJwtConf)
+	return global.JwtConfig{}
 }
 func initCasbin() *casbin.Enforcer {
 	wire.Build(global.InitCasbin)

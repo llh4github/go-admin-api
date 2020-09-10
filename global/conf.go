@@ -12,10 +12,19 @@ type Configuration struct {
 	// 默认值为 /api
 	APIPrefix string
 	DBConf
+	JwtConfig
 }
 
 // DBConf 数据库连接配置
 type DBConf struct {
 	Username, Password, Hostname, Database, Params string
 	Debug                                          bool
+}
+
+// JwtConfig 生成jwt的配置
+type JwtConfig struct {
+	Secret string
+	Iss    string
+	// Exp 过期时间（分钟）。务必写入正整数
+	Exp int
 }

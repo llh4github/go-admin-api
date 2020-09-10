@@ -8,7 +8,7 @@ password='root'
 hostname='127.0.0.1:3306'
 database='go_web'
 params='charset=utf8&parseTime=True&loc=Local'
-[Jwt]
+[JwtConfig]
 secret="waibibabu"
 exp=15 # minute。请写正整数
 iss="llh"

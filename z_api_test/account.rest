@@ -7,3 +7,12 @@ content-type: application/json
     "password": "123"
 }
 ### 
+
+POST http://localhost:8080/api/account/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "Tom",
+    "password": "123"
+}
+### 

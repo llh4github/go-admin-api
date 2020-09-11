@@ -14,9 +14,8 @@ type account struct {
 func accountAPI() {
 	r := account{s: service.NewAccountService()}
 	api.POST("/account/register", r.Register)
-	// api.GET("/role/all", r.All)
-	// api.PUT("/role/update", r.Update)
-	// api.DELETE("/role/delete/:id", r.Delete)
+	api.POST("/account/login", r.Login)
+
 }
 func (a account) Register(c *gin.Context) {
 
@@ -28,4 +27,11 @@ func (a account) Register(c *gin.Context) {
 	}
 	register := a.s.RegisterAccount(acc)
 	a.respJSON(c, vo.OkResponse(register))
+}
+
+func (a account) Login(c *gin.Context) {
+	var acc vo.Account
+	deserialization(c, &acc)
+	login := a.s.Login(acc)
+	a.respJSON(c, vo.OkResponse(login))
 }

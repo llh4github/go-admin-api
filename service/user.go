@@ -23,3 +23,13 @@ func (u User) Add(user model.User) bool {
 	result := db.Create(&user)
 	return result.RowsAffected == 1
 }
+
+// FindByUsername 根据用户名查找用户
+func (u User) FindByUsername(username string) model.User {
+	var user model.User
+	result := db.Where("username = ? and remove_flag = false", username).First(&user)
+	if result.RowsAffected != 0 {
+		panic("用户不存在！")
+	}
+	return user
+}

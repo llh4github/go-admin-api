@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/llh4github/go-admin-api/global"
+	"github.com/llh4github/go-admin-api/middleware"
 	"github.com/llh4github/go-admin-api/vo"
 	"github.com/sirupsen/logrus"
 )
@@ -19,6 +20,7 @@ var (
 // 所有API需要在这里注册
 func LoadAPI(router *gin.Engine) *gin.RouterGroup {
 	api = router.Group(global.Conf.APIPrefix)
+	api.Use(middleware.HandleWebException)
 	api.GET("", func(c *gin.Context) {
 		c.JSON(200, gin.H{"data": "hello"})
 	})
@@ -28,6 +30,7 @@ func LoadAPI(router *gin.Engine) *gin.RouterGroup {
 	log = global.MyLog
 	userAPI()
 	roleAPI()
+	accountAPI()
 	return api
 }
 
@@ -35,6 +38,14 @@ func LoadAPI(router *gin.Engine) *gin.RouterGroup {
 // 	虽然可以不使用结构体，但为了使用公共方法和避免函数名冲突，
 // 	所以选用使用结构体来管理各类API处理方法。
 type baseAPI struct {
+}
+
+// deserialization 以json的形式将请求数据绑定到结构上
+// 	model 必须传入指针
+func deserialization(c *gin.Context, model interface{}) {
+	if err := c.BindJSON(model); err != nil {
+		log.Errorf("数据绑定错误, %v \n", err)
+	}
 }
 
 // 返回指定格式的json数据

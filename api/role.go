@@ -22,18 +22,14 @@ type role struct {
 
 func (r role) Add(c *gin.Context) {
 	var role model.Role
-	if err := c.BindJSON(&role); err != nil {
-		log.Errorf("数据绑定错误, %v \n", err)
-	}
+	deserialization(c, &role)
 	add := r.s.Save(role)
 	r.respJSON(c, vo.OkResponse(add))
 }
 
 func (r role) Update(c *gin.Context) {
 	var role model.Role
-	if err := c.BindJSON(&role); err != nil {
-		log.Errorf("数据绑定错误, %v \n", err)
-	}
+	deserialization(c, &role)
 	updated := r.s.Update(role)
 	r.respJSON(c, vo.OkResponse(updated))
 }

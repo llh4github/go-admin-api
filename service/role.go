@@ -10,7 +10,7 @@ import (
 type Role struct {
 }
 
-func (Role) findByID(id uint) model.Role {
+func (Role) findByID(id string) model.Role {
 	var found model.Role
 	result := db.Where("id = ? and remove_flag = false", id).First(&found)
 	if result.RowsAffected != 1 {
@@ -46,7 +46,7 @@ func (r Role) Update(mdl model.Role) int {
 }
 
 // Remove 软删除
-func (r Role) Remove(id uint) int {
+func (r Role) Remove(id string) int {
 	found := r.findByID(id)
 
 	m := map[string]interface{}{

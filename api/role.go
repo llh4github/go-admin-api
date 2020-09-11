@@ -1,8 +1,6 @@
 package api
 
 import (
-	"strconv"
-
 	"github.com/gin-gonic/gin"
 	"github.com/llh4github/go-admin-api/model"
 	"github.com/llh4github/go-admin-api/service"
@@ -39,11 +37,10 @@ func (r role) Update(c *gin.Context) {
 	updated := r.s.Update(role)
 	r.respJSON(c, vo.OkResponse(updated))
 }
-func (r role) Delete(c *gin.Context) {
 
-	idStr := c.Param("id")
-	id, _ := strconv.Atoi(idStr)
-	deleted := r.s.Remove(uint(id))
+func (r role) Delete(c *gin.Context) {
+	id := c.Param("id")
+	deleted := r.s.Remove(id)
 	r.respJSON(c, vo.OkResponse(deleted))
 }
 func (r role) All(c *gin.Context) {

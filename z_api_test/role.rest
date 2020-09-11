@@ -8,3 +8,23 @@ content-type: application/json
     "display_name": "管理员"
 }
 ### 
+PUT http://localhost:8080/api/role/update HTTP/1.1
+content-type: application/json
+
+{
+    "role_name": "test2",
+    "remark": "角色信息修改测试",
+    "id": 4,
+    "display_name": "测试角色"
+
+}
+### 
+
+DELETE  http://localhost:8080/api/role/delete/2 HTTP/1.1
+content-type: application/json
+
+### 
+GET   http://localhost:8080/api/role/all HTTP/1.1
+content-type: application/json
+
+### 

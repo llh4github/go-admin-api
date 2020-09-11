@@ -6,11 +6,12 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/llh4github/go-admin-api/global"
 	"github.com/llh4github/go-admin-api/vo"
+	"github.com/sirupsen/logrus"
 )
 
 var (
 	api *gin.RouterGroup
-	log = global.MyLog
+	log *logrus.Logger
 )
 
 // LoadAPI 加载API
@@ -24,6 +25,7 @@ func LoadAPI(router *gin.Engine) *gin.RouterGroup {
 	api.GET("/test", func(c *gin.Context) {
 		c.JSON(200, gin.H{"data": "test"})
 	})
+	log = global.MyLog
 	userAPI()
 	roleAPI()
 	return api

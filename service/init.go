@@ -1,6 +1,7 @@
 package service
 
 import (
+	"github.com/casbin/casbin/v2"
 	"github.com/llh4github/go-admin-api/global"
 	"github.com/llh4github/go-admin-api/utils"
 	"github.com/sirupsen/logrus"
@@ -11,6 +12,7 @@ var (
 	db       *gorm.DB
 	log      *logrus.Logger
 	idWorker *utils.SnowflakeIdWorker
+	enforcer *casbin.Enforcer
 )
 
 const (
@@ -30,5 +32,6 @@ type Base struct {
 func InitService() *Base {
 	db = global.MyDB
 	log = global.MyLog
+	enforcer = global.Enforcer
 	return nil
 }

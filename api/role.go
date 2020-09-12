@@ -49,8 +49,6 @@ func (r role) All(c *gin.Context) {
 // FindByUserID 根据用户id查找对应角色信息
 func (r role) FindByUserID(c *gin.Context) {
 	userID := c.Param("user_id")
-
 	l := r.s.FindByUserID(userID)
-
 	r.respJSON(c, vo.OkResponse(l))
 }

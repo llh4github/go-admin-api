@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/llh4github/go-admin-api/exp"
 	"github.com/llh4github/go-admin-api/global"
 	"github.com/llh4github/go-admin-api/middleware"
 	"github.com/llh4github/go-admin-api/vo"
@@ -21,6 +22,7 @@ var (
 func LoadAPI(router *gin.Engine) *gin.RouterGroup {
 	api = router.Group(global.Conf.APIPrefix)
 	api.Use(middleware.HandleWebException)
+	api.Use(middleware.CasbinAuth)
 	api.GET("", func(c *gin.Context) {
 		c.JSON(200, gin.H{"data": "hello"})
 	})
@@ -43,8 +45,10 @@ type baseAPI struct {
 // deserialization 以json的形式将请求数据绑定到结构上
 // 	model 必须传入指针
 func deserialization(c *gin.Context, model interface{}) {
-	if err := c.BindJSON(model); err != nil {
+	// BindJSON 方法绑定错误时会在响应Headers写入400的状态码
+	if err := c.ShouldBind(model); err != nil {
 		log.Errorf("数据绑定错误, %v \n", err)
+		panic(exp.GetCommonExp(exp.BindJSONError))
 	}
 }
 

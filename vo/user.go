@@ -11,3 +11,10 @@ type UserRoles struct {
 	UserID  string   `json:"user_id"`
 	RoleIDs []string `json:"role_ids"`
 }
+
+// AuthRule 认证规则
+type AuthRule struct {
+	RoleNames []string
+	URL       string
+	Action    string
+}

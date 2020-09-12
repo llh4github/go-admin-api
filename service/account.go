@@ -1,6 +1,7 @@
 package service
 
 import (
+	"github.com/llh4github/go-admin-api/exp"
 	"github.com/llh4github/go-admin-api/model"
 	"github.com/llh4github/go-admin-api/utils"
 	"github.com/llh4github/go-admin-api/vo"
@@ -31,13 +32,22 @@ func (a Account) RegisterAccount(acc vo.Account) bool {
 }
 
 // Login 登录
-// TODO 加入 jwt 生成
-func (a Account) Login(acc vo.Account) bool {
+func (a Account) Login(acc vo.Account) string {
 
 	u := a.FindByUsername(acc.Username)
 	b := utils.MatchPassword(acc.Password, u.Password)
-	if b {
-		return true
+	if !b {
+		panic(exp.GetAuthExp(exp.PwdError))
 	}
-	return false
+	r := Role{}
+	roles := r.FindByUserID(u.ID)
+	rIDs := make([]string, 0, len(roles))
+	for _, ele := range roles {
+		rIDs = append(rIDs, ele.RoleName)
+	}
+	token, err := utils.CreateTokenWithRoles(u.ID, rIDs)
+	if err != nil {
+		panic(exp.GetAuthExp(exp.PwdError))
+	}
+	return token
 }

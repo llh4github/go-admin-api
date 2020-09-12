@@ -5,6 +5,11 @@ const (
 	AuthError ExpCode = 40100 + iota
 	// PwdError 用户或密码错误
 	PwdError
+	// JWTGenError 令牌生成错误
+	JWTGenError
+
+	// NotPermission 没有权限
+	NotPermission
 )
 
 // AuthExp 用户认证异常
@@ -32,6 +37,10 @@ func GetAuthExp(code ExpCode) AuthExp {
 		_msg = "授权异常"
 	case PwdError:
 		_msg = "用户或密码错误"
+	case JWTGenError:
+		_msg = "令牌生成错误"
+	case NotPermission:
+		_msg = "没有权限"
 	default:
 		_msg = "未知异常"
 	}

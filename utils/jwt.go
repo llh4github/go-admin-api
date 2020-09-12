@@ -18,6 +18,8 @@ const (
 	Exp = "exp"
 	// Iat  jwt的签发时间
 	Iat = "iat"
+	// Roles 用户所属角色名列表
+	Roles = "roles"
 )
 
 var jwtConf global.JwtConfig
@@ -29,14 +31,17 @@ func InitJwtConf() global.JwtConfig {
 	return jwtConf
 }
 
-// CreateToken 创建token
-// uid参数通常是用户的id
-func CreateToken(uid string) (string, error) {
-	// jwt里的时间请使用时间戳，可以减少jwt长度和时间转换步骤
+// CreateTokenWithRoles 创建token
+// 	uid 用户的id
+// 	roles 此用户所属角色名列表
+func CreateTokenWithRoles(uid string, roles []string) (string, error) {
+
 	claims := jwt.MapClaims{}
 	claims[Sub] = uid
 	claims[Iat] = time.Now().Unix()
+	claims[Roles] = roles
 	claims[Iss] = jwtConf.Iss
+	// jwt里的时间请使用时间戳，可以减少jwt长度和时间转换步骤
 	claims[Exp] = time.Now().Add(
 		time.Minute * time.Duration(jwtConf.Exp)).Unix()
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -46,6 +51,12 @@ func CreateToken(uid string) (string, error) {
 		return "", err
 	}
 	return token, nil
+}
+
+// CreateToken 创建token
+// uid参数通常是用户的id
+func CreateToken(uid string) (string, error) {
+	return CreateTokenWithRoles(uid, make([]string, 0))
 }
 
 // ParseToken 解析token
@@ -71,6 +82,16 @@ func ParseToken(token string) (claims jwt.MapClaims, notExp bool) {
 		} else {
 			notExp = false
 		}
+	}
+	return
+}
+
+// GetRoleNames 获取jwt中的角色名列表
+func GetRoleNames(token string) (roles []string, length int) {
+	m, has := ParseToken(token)
+	if has {
+		roles = m[Roles].([]string)
+		length = len(roles)
 	}
 	return
 }

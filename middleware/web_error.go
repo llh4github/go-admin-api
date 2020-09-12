@@ -26,6 +26,8 @@ func errorMsg(c *gin.Context, r interface{}) {
 		otherErrorMsg(c, v.Error())
 	case vo.JSONWrapper:
 		c.JSON(http.StatusOK, r)
+	case vo.IRespErrorInfo:
+		c.JSON(http.StatusOK, vo.ErrorResp(v))
 	default:
 		otherErrorMsg(c, r.(string))
 	}

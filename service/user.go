@@ -1,6 +1,7 @@
 package service
 
 import (
+	"github.com/llh4github/go-admin-api/exp"
 	"github.com/llh4github/go-admin-api/model"
 	"github.com/llh4github/go-admin-api/utils"
 	"github.com/llh4github/go-admin-api/vo"
@@ -33,7 +34,7 @@ func (u User) FindByUsername(username string) model.User {
 	var user model.User
 	result := db.Where("username = ? and remove_flag = false", username).First(&user)
 	if result.RowsAffected == 0 {
-		panic("用户不存在！")
+		panic(exp.GetCommonExp(exp.DataNotFound))
 	}
 	return user
 }

@@ -17,7 +17,7 @@ type DBMigrateError error
 // DBMigrate 模型注册
 // 自动进行数据库迁移
 func DBMigrate(db *gorm.DB) DBMigrateError {
-	err := db.AutoMigrate(&User{}, &Role{})
+	err := db.AutoMigrate(&User{}, &Role{}, &UserRole{})
 	if err != nil {
 		global.MyLog.Fatalf("数据库迁移失败！ %v ", err)
 	}

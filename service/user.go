@@ -1,6 +1,10 @@
 package service
 
-import "github.com/llh4github/go-admin-api/model"
+import (
+	"github.com/llh4github/go-admin-api/model"
+	"github.com/llh4github/go-admin-api/utils"
+	"github.com/llh4github/go-admin-api/vo"
+)
 
 // User 用户信息服务层
 type User struct {
@@ -28,8 +32,30 @@ func (u User) Add(user model.User) bool {
 func (u User) FindByUsername(username string) model.User {
 	var user model.User
 	result := db.Where("username = ? and remove_flag = false", username).First(&user)
-	if result.RowsAffected != 0 {
+	if result.RowsAffected == 0 {
 		panic("用户不存在！")
 	}
 	return user
+}
+
+// UpdateRoles 更新用户与角色的关系
+func (u User) UpdateRoles(relation vo.UserRoles) int {
+
+	// 1. 删除之前的关系
+	result := db.Where("user_id = ? ", relation.UserID).Delete(&model.UserRole{})
+	if len(relation.RoleIDs) == 0 {
+		log.Debugf("user(id:%s) remove all roles!", relation.UserID)
+		return int(result.RowsAffected)
+	}
+	// 2. 保存新的关系
+	var rl []model.UserRole
+	for _, rID := range relation.RoleIDs {
+		rl = append(rl, model.UserRole{
+			ID:     utils.NextIDDefalut(),
+			RoleID: rID,
+			UserID: relation.UserID,
+		})
+	}
+	result = db.Create(rl)
+	return int(result.RowsAffected)
 }

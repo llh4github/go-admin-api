@@ -5,3 +5,9 @@ package vo
 type Account struct {
 	Username, Password string
 }
+
+// UserRoles 用户-角色关系
+type UserRoles struct {
+	UserID  string   `json:"user_id"`
+	RoleIDs []string `json:"role_ids"`
+}

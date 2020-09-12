@@ -8,9 +8,11 @@ import (
 )
 
 func roleAPI() {
+
 	r := role{s: service.Role{}}
 	api.POST("/role", r.Add)
 	api.GET("/role/all", r.All)
+	api.GET("/role/user/:user_id", r.FindByUserID)
 	api.PUT("/role/update", r.Update)
 	api.DELETE("/role/delete/:id", r.Delete)
 }
@@ -41,5 +43,14 @@ func (r role) Delete(c *gin.Context) {
 }
 func (r role) All(c *gin.Context) {
 	l := r.s.All()
+	r.respJSON(c, vo.OkResponse(l))
+}
+
+// FindByUserID 根据用户id查找对应角色信息
+func (r role) FindByUserID(c *gin.Context) {
+	userID := c.Param("user_id")
+
+	l := r.s.FindByUserID(userID)
+
 	r.respJSON(c, vo.OkResponse(l))
 }

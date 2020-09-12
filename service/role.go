@@ -64,3 +64,21 @@ func (Role) All() []model.Role {
 	db.Where("remove_flag = false").Find(&list)
 	return list
 }
+
+// FindByUserID 根据用户id查找对应角色信息
+func (r Role) FindByUserID(userID string) (roles []model.Role) {
+
+	var rl []model.UserRole
+	db.Where("user_id = ?", userID).Find(&rl)
+	if len(rl) == 0 {
+		return
+	}
+
+	var rIDs []string
+	for _, ele := range rl {
+		rIDs = append(rIDs, ele.RoleID)
+	}
+	db.Where("id in ?", rIDs).Find(&roles)
+
+	return
+}

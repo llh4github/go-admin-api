@@ -19,3 +19,10 @@ type Role struct {
 	// Remark 备注
 	Remark string `json:"remark" gorm:"type:varchar(200)"`
 }
+
+// UserRole 用户-角色关系表
+type UserRole struct {
+	ID     string `gorm:"primaryKey;type:varchar(25)" json:"id"`
+	UserID string `gorm:"type:varchar(25)" json:"user_id"`
+	RoleID string `gorm:"type:varchar(25)" json:"role_id"`
+}

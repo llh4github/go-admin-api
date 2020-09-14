@@ -11,6 +11,21 @@ func TestInitData(t *testing.T) {
 	e.AddPolicy("admin", "/api/admin/3", "put")
 	e.AddPolicy("staff", "/api/staff/1", "get")
 	e.AddPolicy("staff", "/api/staff/2", "post")
+	e.AddPolicy("staff", "/api/staff/path/:id", ".*")
+}
+
+// 测试 restful 匹配
+func TestReMatch(t *testing.T) {
+	has1 := e.HasPermissionForUser("staff", "/api/admin/path/adfjksd", "get")
+	has2, err := e.Enforce("staff", "/api/staff/path/adfjksd", "get")
+	has3, err := e.Enforce("staff", "/api/staff/path/adfjksd", "post")
+	if err != nil {
+		t.Log(err)
+	}
+	t.Log(has1)
+	t.Log(has2)
+	t.Log(has3)
+
 }
 
 // 测试 权限验证

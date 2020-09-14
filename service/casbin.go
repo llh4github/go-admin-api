@@ -1,7 +1,6 @@
 package service
 
 import (
-	"github.com/llh4github/go-admin-api/model"
 	"github.com/llh4github/go-admin-api/vo"
 )
 
@@ -28,15 +27,8 @@ func HasPermission(rule vo.AuthRule) bool {
 
 // Add a rule
 func (c CasbinX) Add(info vo.PermInfo) bool {
-
-	mdl := model.CasbinRule{
-		PType: "p",
-		V0:    info.RoleName,
-		V1:    info.URL,
-		V2:    info.Action,
-	}
-	result := db.Create(&mdl)
-	return result.RowsAffected == 1
+	add, _ := enforcer.AddPermissionForUser(info.RoleName, info.URL, info.Action)
+	return add
 
 }
 
@@ -56,11 +48,7 @@ func (c CasbinX) All() []vo.PermInfo {
 }
 
 // Delete 删除信息
-func (c CasbinX) Delete(info vo.PermInfo) int {
-
-	result := db.Delete(model.CasbinRule{},
-		"v0 = ? and v1= ? and v2 = ? and p_type = 'p'",
-		info.RoleName, info.URL, info.Action,
-	)
-	return int(result.RowsAffected)
+func (c CasbinX) Delete(info vo.PermInfo) bool {
+	deleted, _ := enforcer.DeletePermissionForUser(info.RoleName, info.URL, info.Action)
+	return deleted
 }

@@ -6,13 +6,20 @@ import (
 
 // 测试数据（ACL模型）。按需执行
 func TestInitData(t *testing.T) {
-	// e.AddPolicy("admin", "/api/admin/1", "post")
-	// e.AddPolicy("admin", "/api/admin/2", "get")
-	// e.AddPolicy("admin", "/api/admin/3", "put")
-	// e.AddPolicy("staff", "/api/staff/1", "get")
-	// e.AddPolicy("staff", "/api/staff/2", "post")
+
 	e.AddPolicy("anno", "/api/account/register", "POST")
 	e.AddPolicy("anno", "/api/account/login", "POST")
+	e.AddPolicy("anno", "/api/test", "GET")
+	e.AddPolicy("admin", "/api/user", "POST")
+	e.AddPolicy("admin", "/api/user", "POST")
+	e.AddPolicy("admin", "/api/user/update/role", "PUT")
+	e.AddPolicy("admin", "/api/user/update/role", "PUT")
+	e.AddPolicy("admin", "/api/role", "POST")
+	e.AddPolicy("admin", "/api/role", "POST")
+	e.AddPolicy("admin", "/api/role/all", "GET")
+	e.AddPolicy("admin", "/api/role/user/:user_id", "GET")
+	e.AddPolicy("admin", "/api/role/update", "PUT")
+	e.AddPolicy("admin", "/api/role/delete/:id", "DELETE")
 }
 
 // 测试 restful 匹配

@@ -13,7 +13,8 @@ import (
 
 // CasbinAuth Casbin 鉴权中间件
 func CasbinAuth(c *gin.Context) {
-	url := c.Request.URL.RequestURI()
+	url := c.Request.URL.Path
+	global.MyLog.Debug("url    ", url)
 	action := c.Request.Method
 	jwt := c.GetHeader("auth")
 	rns, size := utils.GetRoleNames(jwt)

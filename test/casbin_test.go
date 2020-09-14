@@ -6,12 +6,13 @@ import (
 
 // 测试数据（ACL模型）。按需执行
 func TestInitData(t *testing.T) {
-	e.AddPolicy("admin", "/api/admin/1", "post")
-	e.AddPolicy("admin", "/api/admin/2", "get")
-	e.AddPolicy("admin", "/api/admin/3", "put")
-	e.AddPolicy("staff", "/api/staff/1", "get")
-	e.AddPolicy("staff", "/api/staff/2", "post")
-	e.AddPolicy("staff", "/api/staff/path/:id", ".*")
+	// e.AddPolicy("admin", "/api/admin/1", "post")
+	// e.AddPolicy("admin", "/api/admin/2", "get")
+	// e.AddPolicy("admin", "/api/admin/3", "put")
+	// e.AddPolicy("staff", "/api/staff/1", "get")
+	// e.AddPolicy("staff", "/api/staff/2", "post")
+	e.AddPolicy("anno", "/api/account/register", "POST")
+	e.AddPolicy("anno", "/api/account/login", "POST")
 }
 
 // 测试 restful 匹配

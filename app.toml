@@ -10,5 +10,5 @@ database='go_web'
 params='charset=utf8&parseTime=True&loc=Local'
 [JwtConfig]
 secret="waibibabu"
-exp=15 # minute。请写正整数
+exp=300 # minute。请写正整数
 iss="llh"

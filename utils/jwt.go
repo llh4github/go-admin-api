@@ -90,7 +90,13 @@ func ParseToken(token string) (claims jwt.MapClaims, notExp bool) {
 func GetRoleNames(token string) (roles []string, length int) {
 	m, has := ParseToken(token)
 	if has {
-		roles = m[Roles].([]string)
+		temp := m[Roles].([]interface{}) // 这里不能直接转换为[]string类型
+		var l []string
+		for _, r := range temp {
+			l = append(l, r.(string))
+		}
+		roles = l
+		logrus.Debug("GetRoleNames : ", roles)
 		length = len(roles)
 	}
 	return

@@ -28,7 +28,9 @@ GET   http://localhost:8080/api/role/all HTTP/1.1
 content-type: application/json
 
 ### 
-GET   http://localhost:8080/api/role/user/754093751047294976 HTTP/1.1
+GET   http://localhost:8080/api/role/user/753979508838895616 HTTP/1.1
 content-type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDAwODQwMDYsImlhdCI6MTYwMDA2NjAwNiwiaXNzIjoibGxoIiwicm9sZXMiOlsiYWRtaW4iXSwic3ViIjoiNzUzOTc5NTA4ODM4ODk1NjE2In0.peGGsFBsYNvbY6UKFBj4cvBd-HCOx7R5UaY-Ryqlrmg
+
 
 ### 

@@ -16,7 +16,7 @@ func CasbinAuth(c *gin.Context) {
 	url := c.Request.URL.Path
 	global.MyLog.Debug("url    ", url)
 	action := c.Request.Method
-	jwt := c.GetHeader("auth")
+	jwt := c.GetHeader("authorization")
 	rns, size := utils.GetRoleNames(jwt)
 	if size == 0 {
 		global.MyLog.Debugf("No Role Info for URL(%s).", url)

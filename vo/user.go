@@ -18,3 +18,10 @@ type AuthRule struct {
 	URL       string
 	Action    string
 }
+
+// PermInfo 权限信息
+type PermInfo struct {
+	RoleName string `json:"role_name"`
+	URL      string `json:"url"`
+	Action   string `json:"action"`
+}

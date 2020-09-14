@@ -33,6 +33,7 @@ func LoadAPI(router *gin.Engine) *gin.RouterGroup {
 	userAPI()
 	roleAPI()
 	accountAPI()
+	permissionAPI()
 	return api
 }
 

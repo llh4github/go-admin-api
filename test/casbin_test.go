@@ -20,6 +20,9 @@ func TestInitData(t *testing.T) {
 	e.AddPolicy("admin", "/api/role/user/:user_id", "GET")
 	e.AddPolicy("admin", "/api/role/update", "PUT")
 	e.AddPolicy("admin", "/api/role/delete/:id", "DELETE")
+	e.AddPolicy("admin", "/api/permission", "POST")
+	e.AddPolicy("admin", "/api/permission/all", "GET")
+
 }
 
 // 测试 restful 匹配

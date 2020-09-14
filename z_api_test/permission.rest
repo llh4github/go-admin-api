@@ -1,0 +1,26 @@
+GET   http://localhost:8080/api/permission/all HTTP/1.1
+content-type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDAwODQwMDYsImlhdCI6MTYwMDA2NjAwNiwiaXNzIjoibGxoIiwicm9sZXMiOlsiYWRtaW4iXSwic3ViIjoiNzUzOTc5NTA4ODM4ODk1NjE2In0.peGGsFBsYNvbY6UKFBj4cvBd-HCOx7R5UaY-Ryqlrmg
+
+
+### 
+POST   http://localhost:8080/api/permission HTTP/1.1
+content-type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDAwODQwMDYsImlhdCI6MTYwMDA2NjAwNiwiaXNzIjoibGxoIiwicm9sZXMiOlsiYWRtaW4iXSwic3ViIjoiNzUzOTc5NTA4ODM4ODk1NjE2In0.peGGsFBsYNvbY6UKFBj4cvBd-HCOx7R5UaY-Ryqlrmg
+
+{
+    "role_name":"admin",
+    "url":"/api/permission/delete",
+    "action":"DELETE"
+}
+### 
+DELETE  http://localhost:8080/api/permission/delete HTTP/1.1
+content-type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDAwODQwMDYsImlhdCI6MTYwMDA2NjAwNiwiaXNzIjoibGxoIiwicm9sZXMiOlsiYWRtaW4iXSwic3ViIjoiNzUzOTc5NTA4ODM4ODk1NjE2In0.peGGsFBsYNvbY6UKFBj4cvBd-HCOx7R5UaY-Ryqlrmg
+
+{
+    "role_name":"admin",
+    "url":"/api/permission/delete",
+    "action":"DELETE"
+}
+### 

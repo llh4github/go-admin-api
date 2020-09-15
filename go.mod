@@ -7,6 +7,7 @@ require (
 	github.com/casbin/gorm-adapter/v3 v3.0.2
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.6.3
+	github.com/go-redis/redis/v8 v8.0.0
 	github.com/google/wire v0.4.0
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/viper v1.7.1

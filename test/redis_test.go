@@ -68,7 +68,7 @@ func TestList(t *testing.T) {
 	t.Log(ex)
 }
 
-// 测试
+// 测试 结构体的存取
 func TestStruct(t *testing.T) {
 	p := Person{
 		Name:     "Tom",
@@ -85,4 +85,18 @@ func TestStruct(t *testing.T) {
 	var p2 Person
 	json.Unmarshal([]byte(s1h), &p2)
 	t.Log(p2)
+}
+
+// 测试 hash
+func TestMap(t *testing.T) {
+	p := Person{
+		Name:     "Tom",
+		Hegith:   123,
+		Birthday: time.Now(),
+	}
+	j, _ := json.Marshal(p)
+	var m map[string]interface{}
+	_ = json.Unmarshal(j, &m)
+	// 此API要求redis4.x及其以上版本
+	rdb.HSet(ctx, "test", m)
 }

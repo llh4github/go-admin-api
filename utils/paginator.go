@@ -51,16 +51,21 @@ func Page(p *vo.PageParam, result interface{}) (*vo.Paginator, error) {
 
 	countRecords(db, result, &count)
 	var paginator vo.Paginator
-
-	res := db.Scopes(pageScope(p)).Find(result)
-
-	if res.Error != nil {
-		return nil, res.Error
+	if count != 0 { // 没数据就没必要再查了
+		res := db.Scopes(pageScope(p)).Find(result)
+		if res.Error != nil {
+			return nil, res.Error
+		}
 	}
+
 	paginator.Records = result
 	paginator.PageSize = p.Limit
 	paginator.TotalRecord = int(count)
-	paginator.TotalPage = int(math.Ceil(float64(count) / float64(p.Limit)))
+	tmp := int(math.Ceil(float64(count) / float64(p.Limit)))
+	if tmp > 0 {
+		paginator.TotalPage = tmp
+	}
+
 	return &paginator, nil
 
 }
